@@ -1,0 +1,467 @@
+<MainPage>
+    size: 282,500
+
+    Image:
+        source: "GoldenGlow.png"
+        allow_stretch:True
+	    keep_ratio:True
+
+	Image:
+	    color: 255/255,30/255,255/255,0.1
+	    size_hint: 260/282,90/500
+	    pos: 10,368
+
+    GridLayout:
+        rows: 3
+        padding:10
+        spacing:10
+
+        Label:
+		    text: "Welcome To Use\nBili Downloader and Converter\nInfinite X"
+		    bold: True
+		    outline_width: 1
+		    outline_color: 0,0,0,1
+	    	font_size: 19
+	    	halign: 'center'
+	    	valign: 'center'
+	    	color: 1,1,1,1
+
+		Button:
+			text: 'Open Download Menu'
+			font_size: 20
+			background_color: 255/255,30/255,221/255,0.5
+			on_press:
+			    app.root.current = 'Download'
+			    root.switchToDownload()
+
+		Button:
+			text: 'Open Converter Menu'
+			font_size: 20
+			background_color: 0.48,0.40,0.93,0.7
+			on_press:
+			    app.root.current = 'Converter'
+			    root.switchToConvert()
+
+<Download>:
+
+    webUrl: webUrl
+    savePosition: savePosition
+    videoSize: videoSize
+    audioSize: audioSize
+    saveName: saveName
+    bv: bv
+
+    pgbar: pgbar
+    pgbar2: pgbar2
+
+	Image:
+	    source:"ConverterBG.jpg"
+	    allow_stretch:True
+	    keep_ratio:True
+
+
+    Label:
+	    text: "Website"
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 0.1,0.1
+	    pos: 40,400
+
+    TextInput:
+		id: webUrl
+		multiline: False
+		background_color: 0,0,0,0.7
+		foreground_color: 1,1,1,1
+		font_size: 25
+		text:
+		size_hint: 0.7,0.1
+		pos: 160,400
+
+    Label:
+	    text: "Save Position"
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 0.1,0.1
+	    pos: 40,350
+
+    TextInput:
+		id: savePosition
+		multiline: False
+		background_color: 0,0,0,0.7
+		foreground_color: 1,1,1,1
+		font_size: 25
+		text: ''
+		size_hint: 0.7,0.1
+		pos: 160,350
+
+	Button:
+        id: selectSavePosition
+        text: 'Select'
+        size_hint: 0.1,0.1
+        pos: 720,350
+        on_press: root.selectOutputFile()
+
+	Button:
+		text: 'Back'
+		font_size: 25
+		background_color: 0.48,0.40,0.93,0.7
+		on_press:
+		    app.root.current='MainPage'
+		    root.setSize(282,500)
+		    self.title = 'Main Page'
+		size_hint: 75/800,130/445
+		pos: 5,5
+
+	Image:
+	    color: 1,1,1,0.5
+	    size_hint: 400/800,205/445
+	    pos: 10,140
+
+    Label:
+	    text: 'Properties'
+	    font_size: 30
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 128,278
+
+    Label:
+	    text: 'Video Title:'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 0,248
+
+	Label:
+	    text: 'BV Series:'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 0,215
+
+	Label:
+	    id: bv
+	    text:
+	    halign: 'left'
+	    valign: 'top'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 190,215
+
+	Label:
+	    text: 'Video Size(byte):'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 0,180
+
+	Label:
+	    id: videoSize
+	    text: 'null'
+	    halign: 'left'
+	    valign: 'top'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 190,180
+
+    Label:
+	    text: 'Audio Size(byte):'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 0,147
+
+	Label:
+	    id: audioSize
+	    text: 'null'
+	    multiline: True
+	    halign: 'left'
+	    valign: 'top'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 190,147
+
+    Label:
+	    text: 'Save Name:'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 0,114
+
+    TextInput:
+	    id: saveName
+	    text: 'download'
+	    multiline: False
+		background_color: 0,0,0,0.7
+		foreground_color: 1,1,1,1
+		font_size: 15
+		size_hint: 270/800,30/445
+		pos: 133,145
+
+
+	Button:
+	    id: start
+	    text: 'Start downloading'
+	    font_size: 35
+	    background_color: 0.48,0.40,0.93,0.9
+	    size_hint: 326/800,130/445
+	    pos: 85,5
+	    on_press: root.btn()
+
+	ProgressBar:
+	    id: pgbar
+	    value: 0
+	    size_hint: 370/800,30/445
+	    pos: 420,220
+
+	Label:
+	    text: 'Video Download Progress'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 480,200
+
+	ProgressBar:
+	    id: pgbar2
+	    value: 0
+	    size_hint: 370/800,30/445
+	    pos:420,100
+
+	Label:
+	    text: 'Audio Download Progress'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 150/800,100/445
+	    pos: 480,80
+
+<ConverterPage>:
+
+    inPosition: inPosition
+    outPosition: outPosition
+    inputFormatLabel: inputFormatLabel
+    outputFormat: outputFormat
+    bps: bps
+    outputWidth: outputWidth
+    outputHeight: outputHeight
+    outputName: outputName
+    percentage: percentage
+    pgbar: pgbar
+
+    selectInput: selectInput
+    selectOutput: selectOutput
+
+    start: start
+    logger: logger
+
+	Image:
+	    source:"ConverterBG.jpg"
+	    allow_stretch:True
+	    keep_ratio:True
+
+
+    Label:
+	    text: "Input File Position"
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 0.1,0.1
+	    pos: 40,400
+
+    TextInput:
+		id: inPosition
+		multiline: False
+		background_color: 0,0,0,0.7
+		foreground_color: 1,1,1,1
+		font_size: 25
+		text:
+		size_hint: 0.7,0.1
+		pos: 160,400
+
+    Button:
+        id: selectInput
+        text: 'Select'
+        size_hint: 0.1,0.1
+        pos: 720,400
+        on_press: root.selectInputFile()
+
+    Label:
+	    text: "Output File Position"
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 0.1,0.1
+	    pos: 40,350
+
+    TextInput:
+		id: outPosition
+		multiline: False
+		background_color: 0,0,0,0.7
+		foreground_color: 1,1,1,1
+		font_size: 25
+		text:
+		size_hint: 0.7,0.1
+		pos: 160,350
+
+	Button:
+        id: selectOutput
+        text: 'Select'
+        size_hint: 0.1,0.1
+        pos: 720,350
+        on_press: root.selectOutputFile()
+
+	Button:
+		text: 'Back'
+		font_size: 25
+		background_color: 0.48,0.40,0.93,0.7
+		on_press:
+		    app.root.current='MainPage'
+		    root.setSize(282,500)
+		    self.title = 'Main Page'
+		size_hint: 75/800,130/445
+		pos: 5,5
+
+	Image:
+	    color: 0,50/255,255/255,0.5
+	    size_hint: 400/800,205/445
+	    pos: 10,140
+
+    Label:
+	    text: 'Settings'
+	    font_size: 30
+	    size_hint: 150/800,100/445
+	    pos: 128,278
+
+	Label:
+	    text: 'Input Format:'
+	    font_size: 18
+	    size_hint: 150/800,100/445
+	    pos: 0,248
+
+	Label:
+	    text: 'Output Format:'
+	    font_size: 18
+	    size_hint: 150/800,100/445
+	    pos: 0,217
+
+	Label:
+	    id: inputFormatLabel
+        color: 238/255,0,34/255,1
+	    font_size: 22
+	    text: "null"
+	    size_hint: 150/800,100/445
+	    pos: 110,250
+
+	TextInput:
+	    id: outputFormat
+	    multiline: False
+		background_color: 0,0,0,0.7
+		foreground_color: 0,221/255,34/255,1
+		font_size: 18
+		size_hint: 100/800,33/445
+		pos: 140,250
+
+	Label:
+	    text: 'bps(kbps):'
+	    font_size: 18
+	    size_hint: 150/800,100/445
+	    pos: 0,182
+
+	TextInput:
+	    id: bps
+	    multiline: False
+		background_color: 0,0,0,0.7
+		foreground_color: 1,1,1,1
+		font_size: 18
+		size_hint: 100/800,33/445
+		pos: 140,215
+
+    Label:
+	    text: 'Width'
+	    font_size: 18
+	    size_hint: 150/800,100/445
+	    pos: 0,147
+
+	TextInput:
+	    id: outputWidth
+	    multiline: False
+		background_color: 0,0,0,0.7
+		foreground_color: 1,1,1,1
+		font_size: 18
+		size_hint: 100/800,33/445
+		pos: 140,180
+
+	Label:
+	    text: 'Height'
+	    font_size: 18
+	    size_hint: 150/800,100/445
+	    pos: 0,112
+
+	TextInput:
+	    id: outputHeight
+	    multiline: False
+		background_color: 0,0,0,0.7
+		foreground_color: 1,1,1,1
+		font_size: 18
+		size_hint: 100/800,33/445
+		pos: 140,145
+
+	Button:
+	    id: start
+	    text: 'Start!'
+	    font_size: 35
+	    background_color: 0.48,0.40,0.93,0.9
+	    size_hint: 326/800,130/445
+	    pos: 85,5
+	    on_press: root.clickStart()
+
+	Label:
+	    text: 'Output Name'
+	    font_size: 18
+	    size_hint: 150/800,100/445
+	    pos: 250,217
+
+	TextInput:
+	    id: outputName
+	    multiline: True
+	    text: 'output'
+		background_color: 0,0,0,0.7
+		foreground_color: 1,1,1,1
+		font_size: 18
+		size_hint: 150/800,103/445
+		pos: 250,145
+
+    Image:
+	    color: 1,1,1,0.5
+	    size_hint: 370/800,40/445
+	    pos: 420,305
+
+    Label:
+        text: 'Logger'
+        color: 0,0,0,1
+        font_size:33
+        size_hint: 370/800,40/445
+	    pos: 420,305
+
+	TextInput:
+	    id: logger
+	    background_color: 1,1,1,0.5
+	    multiline: True
+	    auto_indent: True
+	    text: ''
+	    font_size: 15
+	    size_hint: 370/800,250/445
+	    pos: 420,50
+
+	Label:
+	    id: percentage
+	    text: '0%'
+	    font_size: 18
+	    color: 0,0,0,1
+	    size_hint: 50/800,50/445
+	    pos: 584,-3
+
+	ProgressBar:
+	    id: pgbar
+	    value: 0
+	    size_hint: 370/800,30/445
+	    pos:420,20
